@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Better Drinks - Loja Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f1c5e4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #f8e7f3;
+        }
+        .logo img {
+            width: 92px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 16px;
+        }
+        .search-bar button {
+            background-color: #f1a3c3;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-bar button:hover {
+            background-color: #d188b5;
+        }
+        .cart {
+    display: flex;
+    align-items: center;
+    font-size: 14px; 
+    cursor: pointer;
+}
+
+.cart img {
+    width: 26px; 
+    height: auto; 
+    margin-right: 5px; 
+}
+
+        .main {
+            padding: 20px;
+        }
+        .category {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        .drink-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .drink-item {
+            background-color: #ffd9f9;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        .drink-item:hover {
+            transform: translateY(-5px);
+        }
+        .drink-item img {
+            width: 100%;
+            height: 60%;
+            border-radius: 10px;
+        }
+        .drink-item h3 {
+            margin: 10px 0;
+        }
+        .drink-item button {
+            background-color: #ff6b6b;
+            border: none;
+            padding: 10px;
+            margin-top: 10px;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .drink-item button:hover {
+            background-color: #e65353;
+        }
+        footer {
+            background-color: #f8e7f3;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        footer input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            margin-right: 10px;
+        }
+        footer button {
+            background-color: #f1a3c3;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+        .social-icons {
+            margin-top: 20px;
+        }
+        .social-icons img {
+            width: 40px;
+            margin-right: 10px;
+        }
+        .payment-icons img {
+    width: 40px; 
+    height: 25%; 
+    margin: 0 5px; 
+}
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">
+        <img src="logo fundo rosa.png" alt="Better Drinks Logo">
+    </div>
+    <div class="search-bar">
+        <input type="text" id="search-input" placeholder="O Que Você Procura?">
+        <button onclick="searchProducts()">Buscar</button>
+    </div>
+    <div class="cart" onclick="showCart()">
+        <img src="carrinho.png" alt="Carrinho">
+        Carrinho
+    </div>
+</header>
+
+<main class="main">
+    <div class="category">Bebidas Alcoólicas</div>
+    <section class="drink-grid" id="product-grid">
+        <div class="drink-item">
+            <img src="drink de morango2.jpg" alt="Drink de Morango">
+            <h3>Drink De Morango</h3>
+            <p>R$ 15,00</p>
+            <button onclick="addToCart('Drink De Morango', 15)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="drink-item">
+            <img src="refrigerante.jpg" alt="Drink Sem Alcool">
+            <h3>Drink Sem Alcool</h3>
+            <p>R$ 12,00</p>
+            <button onclick="addToCart('Drink Sem Alcool', 12)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="drink-item">
+            <img src="drink de limão.jpg" alt="Drink De Limão">
+            <h3>Drink De Limão</h3>
+            <p>R$ 14,00</p>
+            <button onclick="addToCart('Drink De Limão', 14)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="drink-item">
+            <img src="drink de laranja.jpg" alt="Drink De Laranja">
+            <h3>Drink De Laranja</h3>
+            <p>R$ 13,00</p>
+            <button onclick="addToCart('Drink De Laranja', 13)">Adicionar ao Carrinho</button>
+        </div>
+    </section>
+
+    <div class="category">Bebidas Não Alcoólicas</div>
+    <section class="drink-grid">
+        <div class="drink-item">
+            <img src="agua mineral.jpg" alt="Água Mineral">
+            <h3>Água Mineral</h3>
+            <p>R$ 5,00</p>
+            <button onclick="addToCart('Água Mineral', 5)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="drink-item">
+            <img src="suco natural.jpg" alt="Suco Natural">
+            <h3>Suco Natural</h3>
+            <p>R$ 7,00</p>
+            <button onclick="addToCart('Suco Natural', 7)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="drink-item">
+            <img src="drink sem alcool.jpg" alt="Refrigerante">
+            <h3>Refrigerante</h3>
+            <p>R$ 6,00</p>
+            <button onclick="addToCart('Refrigerante', 6)">Adicionar ao Carrinho</button>
+        </div>
+        <div class="drink-item">
+            <img src="cha gelado.jpg" alt="Chá Gelado">
+            <h3>Chá Gelado</h3>
+            <p>R$ 8,00</p>
+            <button onclick="addToCart('Chá Gelado', 8)">Adicionar ao Carrinho</button>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <h2>Better Drinks: Onde Cada gole é uma Experiência</h2>
+    <p>Se inscreva no nosso site:</p>
+    <input type="text" placeholder="seu nome">
+    <input type="email" placeholder="seu e-mail">
+    <button>Cadastrar-se</button>
+
+    <div class="social-icons">
+        <a href="#"><img src="whatsapp .png" alt="WhatsApp"></a>
+        <a href="#"><img src="linkedin.png" alt="LinkedIn"></a>
+        <a href="#"><img src="instagram (1).png" alt="Instagram"></a>
+    </div>
+
+    <p>Formas de pagamento:</p>
+    <div class="payment-icons">
+        <img src="visa.png" alt="Visa">
+        <img src="master card.png" alt="MasterCard">
+        <img src="Elo.png" alt="Elo">
+    </div>
+</footer>
+
+<!-- Modal for Cart -->
+<div id="cartModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2>Carrinho de Compras</h2>
+        <div id="cart-items"></div>
+        <p id="cart-total">Total: R$ 0,00</p>
+    </div>
+</div>
+
+<script>
+    const cart = [];
+    let total = 0;
+
+    function addToCart(name, price) {
+        cart.push({ name, price });
+        total += price;
+        alert(`${name} adicionado ao carrinho!`);
+    }
+
+    function showCart() {
+        const cartItems = document.getElementById('cart-items');
+        cartItems.innerHTML = '';
+        
+        cart.forEach(item => {
+            const div = document.createElement('div');
+            div.textContent = `${item.name} - R$ ${item.price.toFixed(2)}`;
+            cartItems.appendChild(div);
+        });
+
+        document.getElementById('cart-total').textContent = `Total: R$ ${total.toFixed(2)}`;
+        document.getElementById('cartModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('cartModal').style.display = 'none';
+    }
+
+    function searchProducts() {
+        const input = document.getElementById('search-input').value.toLowerCase();
+        const drinkItems = document.querySelectorAll('.drink-item');
+        
+        drinkItems.forEach(item => {
+            const name = item.querySelector('h3').textContent.toLowerCase();
+            item.style.display = name.includes(input) ? 'block' : 'none';
+        });
+    }
+</script>
+
+</body>
+</html>
